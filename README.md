@@ -60,11 +60,11 @@
 #### 3. Проверьте terraform plan. Изменений быть не должно.
 
 
-Создаём необходимые переменные:
+Создаём необходимые переменные:  
 ![variables](images/image13.png)
 
 
-Пользователя (`ubuntu`) для `metadata.ssh-keys` переносим с другим префиксом, по аналогии `vms_ssh_root_key`:
+Пользователя (`ubuntu`) для `metadata.ssh-keys` переносим с другим префиксом, по аналогии `vms_ssh_root_key`:  
 ![variables](images/image15.png)
 
 Подставляем переменные вместо значений в `main.tf`:  
@@ -83,7 +83,7 @@
 #### 2. Скопируйте блок ресурса и создайте с его помощью вторую ВМ в файле main.tf: "netology-develop-platform-db" , cores  = 2, memory = 2, core_fraction = 20. Объявите её переменные с префиксом vm_db_ в том же файле ('vms_platform.tf'). ВМ должна работать в зоне "ru-central1-b"
 #### 3. Примените изменения.
 
-Создаём [`vms_platform.tf`](src/vms_platform.tf), копируем туда переменные меняем имена, добавляем переменую зоны и cidr.
+Создаём [`vms_platform.tf`](src/vms_platform.tf), копируем туда переменные меняем имена, добавляем переменую зоны и cidr.  
 ![servers](images/image20.png)
 
 Копируем блок создания vm и меняем имена переменных в [`main.tf`](src/main.tf), добавляем зону.
@@ -123,7 +123,7 @@
 `name        = local.vm_web_name`  
 Аналогично для `vm_web_db`
 
-Запускаем:
+Запускаем:  
 ![output](images/image24.png)
 
 Проверяем в Yandex Console:
@@ -139,7 +139,7 @@
 Создаём новую переменную в locals, т.к. используем интерполяцию:  
 ![vm_metadata](images/image27.png)
 
-Соответственно, в main.tf меняем блок metadata:
+Соответственно, в main.tf меняем блок metadata:  
 ![metadata](images/image28.png)
 
 #### 3. Найдите и закоментируйте все, более не используемые переменные проекта.
@@ -183,8 +183,8 @@
 ## Задание 8*
 Пишем переменную в [terraform.tfvars](src/terraform.tfvars)
 
-Пишем описание переменной в [variables.tf](src/variables.tf)
+Пишем описание переменной в [variables.tf](src/variables.tf)  
 ![terraform.tf](images/image38.png)
 
-Проверяем в консоли:
+Проверяем в консоли:  
 ![terraform console](images/image39.png)
