@@ -15,6 +15,23 @@ resource "yandex_vpc_subnet" "develop_b" {
   v4_cidr_blocks = var.additional_cidr
 }
 
+resource "yandex_vpc_gateway" "nat_gateway" {
+  folder_id      = var.folder_id
+  name = "test-gateway"
+  shared_egress_gateway {}
+}
+
+resource "yandex_vpc_route_table" "rt" {
+  folder_id      = var.folder_id
+  name       = "test-route-table"
+  network_id = yandex_vpc_network.develop.id
+
+  static_route {
+    destination_prefix = "0.0.0.0/0"
+    gateway_id         = yandex_vpc_gateway.nat_gateway.id
+  }
+}
+
 data "yandex_compute_image" "ubuntu" {
   family = var.vm_web_family
 }
@@ -45,7 +62,7 @@ resource "yandex_compute_instance" "platform" {
 
 resource "yandex_compute_instance" "platform-db" {
   name        = local.vm_db_name
-  zone        = var.additional_zone
+  # zone        = var.additional_zone
   platform_id = var.vm_db_platform_id
   resources {
     cores         = var.vm_resources.db.cores
@@ -61,7 +78,7 @@ resource "yandex_compute_instance" "platform-db" {
     preemptible = var.vm_db_params.preemptible
   }
   network_interface {
-    subnet_id = yandex_vpc_subnet.develop_b.id
+    subnet_id = yandex_vpc_subnet.develop.id
     nat       = var.vm_db_params.nat
   }
 

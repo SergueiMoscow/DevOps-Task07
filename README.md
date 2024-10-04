@@ -188,3 +188,25 @@
 
 Проверяем в консоли:  
 ![terraform console](images/image39.png)
+
+## Задание 9*
+#### Используя инструкцию https://cloud.yandex.ru/ru/docs/vpc/operations/create-nat-gateway#tf_1, настройте для ваших ВМ nat_gateway. Для проверки уберите внешний IP адрес (nat=false) у ваших ВМ и проверьте доступ в интернет с ВМ, подключившись к ней через serial console. Для подключения предварительно через ssh измените пароль пользователя: `sudo passwd ubuntu`
+
+Добавляем два ресурса в [main.tf](src/main.tf)  
+![main.tf](images/image40.png)
+
+У одной из машин меняем в `resources` `nat = false`
+
+Запускаем - машины создались:  
+![yandex console](images/image41.png)
+
+Временно добавляем внешний ip чтобы задать пароль
+![create public ip](images/image42.png)
+
+Но, что-то не сработало. С первой машиной по внутренней сети связь есть, а с внешним миром связи нет:  
+![Serial console](images/image43.png)
+
+После первой неудачной попытки сделал изменения:
+![changes](images/image44.png)
+
+Но результата это не дало. Не пойму, в что не так.

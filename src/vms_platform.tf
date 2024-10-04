@@ -11,7 +11,7 @@ variable "vm_db_params" {
 
   default = {
     preemptible = true
-    nat         = true
+    nat         = false
   }
 }
 
